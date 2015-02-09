@@ -20,6 +20,7 @@ angular.module('myApp', [
     if( !auth.isUserLoggedIn ) {
       $location.path("/");
     } else {
+      $location.path("/dashboard");
       //console.log("auth.isUserLoggedIn: " + auth.isUserLoggedIn);
     }
   });
