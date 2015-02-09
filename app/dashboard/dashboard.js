@@ -1,45 +1,51 @@
 'use strict';
 
-angular.module('myApp.dashboard', ['ngRoute'])
+define([
+  'angular',
+  'components/tasksService/tasksService'
+  ], function(angular, tasksService) {
+    
+  angular.module('myApp.dashboard', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/dashboard', {
-    templateUrl: 'dashboard/dashboard.html',
-    controller: 'dashboardController'
-  });
-}])
+  .config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/dashboard', {
+      templateUrl: 'dashboard/dashboard.html',
+      controller: 'dashboardController'
+    });
+  }])
 
-.controller('dashboardController', ['$scope', 'task', function($scope, task) {
+  .controller('dashboardController', ['$scope', 'task', function($scope, task) {
 
-  $scope.taskList = task.getAsArray();
-
-  $scope.task = {
-    description: '',
-    done: false
-  };
-
-  $scope.markTaskAsDone = function(taskDone, taskId) {
-    task.markAsDone(taskDone, taskId);
-  };
-
-  $scope.createTask = function() {
-    task.create($scope.task);
+    $scope.taskList = task.getAsArray();
 
     $scope.task = {
       description: '',
       done: false
     };
 
-  };
+    $scope.markTaskAsDone = function(taskDone, taskId) {
+      task.markAsDone(taskDone, taskId);
+    };
 
-  $scope.delteTask = function(taskId) {
-    task.removeById(taskId);
-  };
+    $scope.createTask = function() {
+      task.create($scope.task);
 
-  $scope.updateTask = function() {
+      $scope.task = {
+        description: '',
+        done: false
+      };
 
-  };
+    };
+
+    $scope.delteTask = function(taskId) {
+      task.removeById(taskId);
+    };
+
+    $scope.updateTask = function() {
+
+    };
 
 
 
-}]);
+  }]);
+});
